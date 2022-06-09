@@ -1,0 +1,16 @@
+----------------------------------------------------------------------
+Sentencia que permite saber cual es el producto que más stock tiene:
+---------------------------------------------------------------------
+
+select * from productos order by stock desc limit 1;
+
+----------------------------------------------------------------------
+Sentencia que permita conocer cual es el producto más vendido:
+--------------------------------------------------------------------
+
+select codigo_producto_vendido, p.nombre_producto, sum(cantidad_vendida) as total 
+from (select codigo_producto_vendido, cantidad_vendida from ventas 
+group by codigo_producto_vendido, cantidad_vendida ) v
+inner join productos p on p.codigo = codigo_producto_vendido 
+group by codigo_producto_vendido order by total desc limit 1;
+
